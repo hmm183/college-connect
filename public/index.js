@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
-const session = require("express-session"); // Add this line
+//const session = require("express-session"); // Add this line
 require('dotenv').config();
 
 const app = express();
@@ -14,11 +14,24 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use express-session middleware
-app.use(session({
-    secret: 'your_secret_key',
+const session = require("express-session");
+const RedisStore = require("connect-redis").default;
+const { createClient } = require("redis");
+
+const redisClient = createClient({
+  url: process.env.REDIS_URL || "redis://localhost:6379"
+});
+redisClient.connect().catch(console.error);
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
-    saveUninitialized: true
-}));
+    saveUninitialized: false,
+    cookie: { secure: false } // Change to `true` if using HTTPS
+  })
+);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
