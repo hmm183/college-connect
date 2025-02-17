@@ -14,24 +14,29 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use express-session middleware
+
 const session = require("express-session");
-const RedisStore = require("connect-redis").default;
+const RedisStore = require("connect-redis").RedisStore; // ✅ Try this
 const { createClient } = require("redis");
 
+// Initialize Redis client
 const redisClient = createClient({
-  url: process.env.REDIS_URL || "redis://localhost:6379"
+  url: process.env.REDIS_URL || "redis://localhost:6379",
+  legacyMode: true, // Required for some versions
 });
+
 redisClient.connect().catch(console.error);
 
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: new RedisStore({ client: redisClient }), // ✅ Proper usage
     secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // Change to `true` if using HTTPS
+    cookie: { secure: false }, // Change to `true` for HTTPS
   })
 );
+
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
