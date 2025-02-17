@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Manage Student Clubs</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333 ;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .navbar a.back-btn {
+            background-color: #032fc0 ;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a.back-btn:hover {
+            background-color: #030768 ;
+        }
+
+        /* Main Content Styles */
+        .content {
+            padding: 20px;
+        }
+
+        .navbar h2{
+            color: #f4f4f9;
+            text-align: center ;
+            margin-left: -90px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Club List Container */
+        .club-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Club Card Styles */
+        .club-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .club-card:hover {
+            transform: translateY(-10px) scale(1.05); /* 3D effect and zoom */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .club-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .club-card p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Button Styles */
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .approve-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background-color: #45a049;
+        }
+
+        .decline-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .decline-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color:#1B263B;
+            padding: 10px 20px;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ACB0BD;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #4CAF50;
+        }
+
+        .navbar .logout-button {
+            background-color: #415A77;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .logout-button:hover {
+            background-color: #415A77;
+        }
+    </style>
+    <script>
+        async function fetchClubs() {
+            const response = await fetch('/pending_clubs'); // Fetch only pending clubs
+            const clubs = await response.json();
+            const clubList = document.getElementById("clubList");
+            clubList.innerHTML = "";
+
+            clubs.forEach(club => {
+                const card = document.createElement("div");
+                card.className = "club-card";
+                card.innerHTML = `
+                    <h3>${club.name}</h3>
+                    <p>Created by: ${club.createdBy}</p>
+                    <div class="button-container">
+                        <button class="approve-btn" onclick="approveClub('${club._id}')">Approve</button>
+                        <button class="decline-btn" onclick="deleteClub('${club._id}')">Decline</button>
+                    </div>
+                `;
+                clubList.appendChild(card);
+            });
+        }
+
+        async function approveClub(clubId) {
+            await fetch('/admin/approve_club', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ clubId }) 
+            });
+            fetchClubs();
+        }
+
+        async function deleteClub(clubId) {
+            await fetch('/admin/delete_club', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify({ clubId }) 
+            });
+            fetchClubs();
+        }
+
+        window.onload = fetchClubs;
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/" class="back-btn"> Logout </a>
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="admin_events">Events</a>
+            <a href="admin_clubs">Clubs</a>
+        </div>
+
+        <div class="logo">Connect</div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Pending Student Clubs</h2>
+        <div id="clubList" class="club-list"></div>
+    </div>
+</body>
+</html>

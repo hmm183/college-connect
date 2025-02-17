@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Event</title>
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1B263B;
+            padding: 10px 20px;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed; /* Fixed position */
+            top: 0; /* Positioned at the top */
+            width: 100%; /* Full width */
+            z-index: 1000; /* Ensure the navbar is above other content */
+        }
+
+        .navbar h2 {
+            color: #f4f4f9;
+            text-align: center;
+            margin-left: -90px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            margin: 0px 30px; 
+            font-weight: bold;
+            color: #ACB0BD;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #4CAF50;
+        }
+
+        .navbar .back-btn {
+            background-color: #032fc0;
+            color: white;
+            padding: 8px 16px;
+            margin: 0px 0px 0px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .navbar .back-btn:hover {
+            background-color: #030768;
+        }
+
+        .navbar .logout-button {
+            background-color: #415A77;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .logout-button:hover {
+            background-color: #415A77;
+        }
+
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://img.freepik.com/premium-vector/festive-banner-carnival-sign-birthday-party-fun-event_220217-95.jpg');
+            background-size: cover;
+            padding-top: 80px; /* Adjusted padding to ensure content is not hidden under the fixed navbar */
+        }
+
+        /* Card styling */
+        .card {
+            background-color: #e8e5e5f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            margin-bottom: 16px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            background-color: #105db5;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #031a83;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/" class="back-btn">Logout </a> <!-- Corrected the back button link and text style -->
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="admin_events">Events</a>
+            <a href="admin_clubs">Clubs</a>
+        </div>
+
+        <div class="logo">Connect</div>
+    </div>
+
+    <!-- Card content -->
+    <div class="card">
+        <h2>Add a New Event</h2>
+        <form action="/admin_events" method="POST">
+            <label>Title:</label>
+            <input type="text" name="title" required><br>
+
+            <label>Host:</label>
+            <input type="text" name="host" required><br>
+
+            <label>Description:</label>
+            <textarea name="desc" required></textarea><br>
+
+            <label>Date:</label>
+            <input type="date" name="date" required><br>
+
+            <label>Venue:</label>
+            <input type="text" name="venue" required><br>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+</body>
+</html>

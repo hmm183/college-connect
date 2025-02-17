@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling with Background Image */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://png.pngtree.com/background/20210710/original/pngtree-talent-interest-class-cartoon-flat-blue-banner-picture-image_993540.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        /* Heading Styling */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        /* Description Styling */
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Button Styling */
+        .GFG {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Button Hover Effect */
+        .GFG:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+
+        /* Button Active Effect */
+        .GFG:active {
+            background-color: #3e8e41;
+            transform: scale(0.9);
+        }
+
+        /* Tagline Styling */
+        .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-top: 20px;
+            color: #ddd;
+        }
+
+        /* Copyright Styling */
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome to <br> College Connect</h1>
+        <div class="description">
+            College Connect is your one-stop platform to stay updated on all college events, connect with peers, and foster a vibrant campus community. From workshops and seminars to cultural fests, never miss out on what's happening around you!
+        </div>
+        <div class="tagline">
+            Connecting Minds, Building Futures – Your Gateway to Campus Life! 
+        </div>
+        <br>
+        <button class="GFG" onclick="window.location.href = '/register';">
+            Click Here
+        </button>
+        
+    </div>
+
+    <div class="copyright">
+        &copy; 2025 College Connect. All rights reserved.
+    </div>
+
+    <script>
+        // JavaScript for additional interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.querySelector('.GFG');
+
+            button.addEventListener('mouseover', () => {
+                button.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.7)';
+            });
+
+            button.addEventListener('mouseout', () => {
+                button.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

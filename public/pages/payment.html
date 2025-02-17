@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment & Bank Details</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            flex-direction: row;
+            gap: 50px;
+        }
+
+        /* Card Container */
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            width: 350px; /* Ensuring both cards have the same width */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Bank Details Styling */
+        .bank-details p {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 25px 0; /* Added margin to maintain equal card height */
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .upi-details p {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0; /* Added margin to maintain equal card height */
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .bank-details p:hover, .upi-details p:hover {
+            background: #e0e0e0;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* QR Code Styling */
+        .qr-code {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="card bank-details">
+        <h2>Bank Account Details</h2>
+        <p><strong>Account Holder:</strong> Raushan Shrivastwa</p>
+        <p><strong>Bank Name:</strong> IndusInd Bank</p>
+        <p><strong>Account Number:</strong> 123456789012</p>
+        <p><strong>IFSC Code:</strong> ABCD0123456</p>
+        <p><strong>Branch:</strong> Patna</p>
+    </div>
+
+    <div class="card upi-details">
+        <h2>UPI Payment Details</h2>
+        <div class="qr-code">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QR Code" height="200px" width="200px">
+          </div>
+        <p><strong>UPI Number:</strong> 6205431508</p>
+        <p><strong>UPI ID:</strong> 6205431508@superyes</p>
+        
+    </div>
+</body>
+</html>
