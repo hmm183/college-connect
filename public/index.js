@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const session = require("express-session"); // Add this line
+require('dotenv').config();
 
 const app = express();
 
@@ -20,10 +21,12 @@ app.use(session({
 }));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/mydb')
-  .then(() => console.log("Connected to Database"))
-  .catch(err => console.log("Error in Connecting to Database: ", err));
-
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("Connected to MongoDB Atlas"))
+.catch(err => console.error("MongoDB connection error:", err));
 // Get database connection
 const db = mongoose.connection;
 const usersCollection = db.collection("users");
