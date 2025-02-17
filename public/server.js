@@ -1,12 +1,18 @@
-const express = require("express");
+const express = require('express');
+const path = require('path');
 const app = express();
 
-const PORT = 3000;
+// Use index.js from the public folder
+const index = require(path.join(__dirname, 'public', 'index.js'));
 
-app.get("/", (req, res) => {
-  res.send("Hello, Express!");
-});
+// Middleware to serve static files from public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Use index.js as the route handler
+app.use(index);
+
+// Set the port dynamically for Vercel
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
