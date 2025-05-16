@@ -172,13 +172,19 @@
         }
 
         async function joinClub(clubId) {
-            await fetch('/join_club', { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ clubId }) 
-            })
-            .then(response => response.text())
-            .then(message => alert(message));
+            const token = localStorage.getItem("jwtToken");
+
+            const response = await fetch('/join_club', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ clubId })
+            });
+
+            const message = await response.text();
+            alert(message);
 
             fetchApprovedClubs();
         }
@@ -192,16 +198,23 @@
                 return;
             }
 
-            await fetch('/create_club', { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ name, description }) 
-            })
-            .then(response => response.text())
-            .then(message => alert(message));
+            const token = localStorage.getItem("jwtToken");
+
+            const response = await fetch('/create_club', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ name, description })
+            });
+
+            const message = await response.text();
+            alert(message);
 
             fetchApprovedClubs();
         }
+
 
         window.onload = fetchApprovedClubs;
 
@@ -215,8 +228,16 @@
     <!-- Navbar -->
     <div class="navbar">
         <!-- College Connect Logo -->
-        <button class="logout-button" onclick="logout()">Logout</button>
-        
+        <button id="logoutBtn" class="back-btn">Logout</button>
+        <script>
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('jwtToken');  // Remove the token
+            // Optionally remove other user-related localStorage items here
+            // Redirect to homepage or login page
+            window.location.href = '/';
+        });
+        </script>
+
         <!-- Navigation Links -->
         <div class="nav-links">
             <a href="student_events">Events</a>

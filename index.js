@@ -59,33 +59,33 @@ function authorizeAdmin(req, res, next) {
 // Home route
 app.get("/", (req, res) => {
     res.set({ "Access-Control-Allow-Origin": "*" });
-    res.sendFile(path.join(__dirname, "pages", "home.html"));
+    res.sendFile(path.join(__dirname, "public","pages", "home.html"));
 });
 
 // Register route (serves register.html)
 app.get("/register", (req, res) => {
     res.set({ "Access-Control-Allow-Origin": "*" });
-    res.sendFile(path.join(__dirname, "pages", "register.html"));
+    res.sendFile(path.join(__dirname, "public", "pages", "register.html"));
 });
 
 // Admin events route
 app.get("/admin_events", (req, res) => {
-    res.sendFile(path.join(__dirname, "pages", "admin_events.html"));
+    res.sendFile(path.join(__dirname, "public", "pages", "admin_events.html"));
 });
 
 // Student events route
 app.get("/student_events", (req, res) => {
-    res.sendFile(path.join(__dirname, "pages", "students_events.html"));
+    res.sendFile(path.join(__dirname, "public", "pages", "students_events.html"));
 });
 
 // Clubs page for students
 app.get("/students_club", (req, res) => {
-    res.sendFile(path.join(__dirname, "pages", "students_club.html"));
+    res.sendFile(path.join(__dirname, "public", "pages", "students_club.html"));
 });
 
 // Admin clubs page
 app.get("/admin_clubs", (req, res) => {
-    res.sendFile(path.join(__dirname, "pages", "admin_clubs.html"));
+    res.sendFile(path.join(__dirname, "public", "pages", "admin_clubs.html"));
 });
 
 // Get student events data
