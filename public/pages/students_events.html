@@ -100,7 +100,15 @@
     <!-- Navigation Bar -->
     <div class="navbar">
         <!-- Logout Button -->
-       <a href="/"> <button class="logout-button" onclick="logout()">Logout</button></a>
+        <button id="logoutBtn" class="back-btn">Logout</button>
+        <script>
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('jwtToken');  // Remove the token
+            // Optionally remove other user-related localStorage items here
+            // Redirect to homepage or login page
+            window.location.href = '/';
+        });
+        </script>
 
         <!-- Navigation Links -->
         <div class="nav-links">

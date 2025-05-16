@@ -153,7 +153,15 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <a href="/" class="back-btn">Logout </a> <!-- Corrected the back button link and text style -->
+        <button id="logoutBtn" class="back-btn">Logout</button>
+        <script>
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('jwtToken');  // Remove the token
+            // Optionally remove other user-related localStorage items here
+            // Redirect to homepage or login page
+            window.location.href = '/';
+        });
+        </script>
 
         <!-- Navigation Links -->
         <div class="nav-links">
@@ -167,24 +175,67 @@
     <!-- Card content -->
     <div class="card">
         <h2>Add a New Event</h2>
-        <form action="/admin_events" method="POST">
+        <form id="eventForm">
             <label>Title:</label>
             <input type="text" name="title" required><br>
-
+    
             <label>Host:</label>
             <input type="text" name="host" required><br>
-
+    
             <label>Description:</label>
             <textarea name="desc" required></textarea><br>
-
+    
             <label>Date:</label>
             <input type="date" name="date" required><br>
-
+    
             <label>Venue:</label>
             <input type="text" name="venue" required><br>
-
+    
             <button type="submit">Add Event</button>
         </form>
     </div>
+    
+    <script>
+    document.getElementById('eventForm').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent default form submit
+    
+        // Get token from localStorage
+        const token = localStorage.getItem('jwtToken');
+        if (!token) {
+            alert('You must be logged in to add an event.');
+            return;
+        }
+    
+        // Get form data as JSON
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+    
+        try {
+            const response = await fetch('/admin_events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+    
+            if (response.ok) {
+                alert('Event added successfully!');
+                this.reset();
+            } else if (response.status === 401) {
+                alert('Unauthorized. Please login again.');
+            } else {
+                const errMsg = await response.text();
+                alert('Failed to add event: ' + errMsg);
+            }
+        } catch (error) {
+            alert('Error submitting event: ' + error.message);
+        }
+    });
+    </script>    
 </body>
 </html>
